@@ -1,70 +1,261 @@
-import { Image, StyleSheet, Platform } from 'react-native';
+import React from "react";
+import {
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TextInput,
+  ScrollView,
+} from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
+import colors from "../../config/colors";
+import SPACING from "../../config/SPACING";
+import { MaterialCommunityIcons, Ionicons } from "@expo/vector-icons";
+import {
+  TouchableOpacity,
+  GestureHandlerRootView,
+} from "react-native-gesture-handler";
+import { useNavigation } from "@react-navigation/native";
+import { RootStackParamList } from "./AppNavigator";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+type HomeScreenNavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  "Home"
+>;
 
-export default function HomeScreen() {
+const avatar = require("../../assets/avatar/avator.jpg");
+
+const gradient: [string, string] = [colors["dark-gray"], colors.black];
+
+const HomeScreen = () => {
+  const navigation = useNavigation<HomeScreenNavigationProp>();
+
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({ ios: 'cmd + d', android: 'cmd + m' })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <SafeAreaView style={{ flex: 1, backgroundColor: colors.black }}>
+        <ScrollView contentContainerStyle={{ padding: SPACING }}>
+          {/* Header */}
+          <View style={styles.header}>
+            <LinearGradient
+              style={styles.iconContainer}
+              colors={[colors.light, colors["dark-gray"]]}
+            >
+              <TouchableOpacity style={styles.iconButton}>
+                <MaterialCommunityIcons
+                  name="dots-horizontal"
+                  color={colors.light}
+                  size={SPACING * 2}
+                />
+              </TouchableOpacity>
+            </LinearGradient>
+            <LinearGradient
+              style={styles.iconContainer}
+              colors={[colors.light, colors["dark-gray"]]}
+            >
+              <TouchableOpacity style={styles.iconButton}>
+                <Image source={avatar} style={styles.avatar} />
+              </TouchableOpacity>
+            </LinearGradient>
+          </View>
+
+          {/* Search Bar */}
+          {/* <View style={styles.searchContainer}>
+            <TextInput
+              style={styles.searchInput}
+              placeholder="Search"
+              placeholderTextColor={colors.light}
+            />
+            <Ionicons
+              style={styles.searchIcon}
+              size={SPACING * 2.5}
+              color={colors.light}
+              name="search"
+            />
+          </View> */}
+
+          {/* Toyota Card */}
+          <TouchableOpacity onPress={() => navigation.navigate("Toyota")}>
+            <LinearGradient colors={gradient} style={styles.card}>
+              <View style={styles.cardTextContainer}>
+                <Text style={styles.discountText}>Toyota</Text>
+                <Text style={styles.titleText}>Calculate Price</Text>
+                <Text style={styles.descriptionText}>
+                  Dapatkan Harga Ambilan Mu Terbaik Untuk Membeli Mobil
+                </Text>
+              </View>
+              <View style={styles.imageContainer}>
+                <Image
+                  style={styles.carImage}
+                  source={require("../../assets/toyota2.jpg")}
+                />
+              </View>
+            </LinearGradient>
+          </TouchableOpacity>
+
+          {/* Suzuki Card */}
+          <TouchableOpacity onPress={() => navigation.navigate("Suzuki")}>
+            <LinearGradient colors={gradient} style={styles.card}>
+              <View style={styles.cardTextContainer}>
+                <Text style={styles.discountText}>Suzuki</Text>
+                <Text style={styles.titleText}>Calculate Price</Text>
+                <Text style={styles.descriptionText}>
+                  Dapatkan Harga Ambilan Mu Terbaik Untuk Membeli Mobil
+                </Text>
+              </View>
+              <View style={styles.imageContainer}>
+                <Image
+                  style={styles.carImage}
+                  source={require("../../assets/suzuki.png")}
+                />
+              </View>
+            </LinearGradient>
+          </TouchableOpacity>
+
+          {/* Honda Card */}
+          <TouchableOpacity onPress={() => navigation.navigate("Honda")}>
+            <LinearGradient colors={gradient} style={styles.card}>
+              <View style={styles.cardTextContainer}>
+                <Text style={styles.discountText}>Honda</Text>
+                <Text style={styles.titleText}>Calculate Price</Text>
+                <Text style={styles.descriptionText}>
+                  Dapatkan Harga Ambilan Mu Terbaik Untuk Membeli Mobil
+                </Text>
+              </View>
+              <View style={styles.imageContainer}>
+                <Image
+                  style={styles.carImage}
+                  source={require("../../assets/honda.jpg")}
+                />
+              </View>
+            </LinearGradient>
+          </TouchableOpacity>
+
+          {/* Mazda Card */}
+          <TouchableOpacity onPress={() => navigation.navigate("Mazda")}>
+            <LinearGradient colors={gradient} style={styles.card}>
+              <View style={styles.cardTextContainer}>
+                <Text style={styles.discountText}>Mazda</Text>
+                <Text style={styles.titleText}>Calculate Price</Text>
+                <Text style={styles.descriptionText}>
+                  Dapatkan Harga Ambilan Mu Terbaik Untuk Membeli Mobil
+                </Text>
+              </View>
+              <View style={styles.imageContainer}>
+                <Image
+                  style={styles.carImage}
+                  source={require("../../assets/mazda.jpg")}
+                />
+              </View>
+            </LinearGradient>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={() => navigation.navigate("Custom")}>
+            <LinearGradient colors={gradient} style={styles.card}>
+              <View style={styles.cardTextContainer}>
+                <Text style={styles.discountText}>Custom</Text>
+                <Text style={styles.titleText}>Calculate Price</Text>
+                <Text style={styles.descriptionText}>
+                  Mari Buat Harga Ambilan Mu Sendiri
+                </Text>
+              </View>
+              <View style={styles.iconContainerlogo}>
+                <Ionicons
+                  name="person"
+                  size={SPACING * 5}
+                  color={colors.light}
+                />
+              </View>
+            </LinearGradient>
+          </TouchableOpacity>
+        </ScrollView>
+      </SafeAreaView>
+    </GestureHandlerRootView>
   );
-}
+};
+
+export default HomeScreen;
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
+  header: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: SPACING * 2,
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
+  iconContainer: {
+    height: SPACING * 4,
+    width: SPACING * 4,
+    borderRadius: SPACING * 2,
+    justifyContent: "center",
+    alignItems: "center",
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+  iconButton: {
+    height: SPACING * 3,
+    width: SPACING * 3,
+    backgroundColor: colors.black,
+    borderRadius: SPACING * 1.5,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  avatar: {
+    height: "100%",
+    width: "100%",
+    borderRadius: SPACING * 2,
+  },
+  searchContainer: {
+    position: "relative",
+    marginVertical: SPACING * 3,
+    justifyContent: "center",
+  },
+  searchInput: {
+    backgroundColor: colors["dark-gray"],
+    padding: SPACING * 1.5,
+    borderRadius: SPACING * 2,
+    color: colors.light,
+    fontSize: SPACING * 2,
+    paddingLeft: SPACING * 4,
+  },
+  searchIcon: {
+    position: "absolute",
+    left: SPACING,
+  },
+  card: {
+    padding: SPACING * 2,
+    height: 140,
+    borderRadius: SPACING * 2,
+    flexDirection: "row",
+    marginTop: 50,
+  },
+  cardTextContainer: {
+    maxWidth: "50%",
+  },
+  discountText: {
+    color: colors.light,
+    fontSize: SPACING * 2,
+    fontWeight: "800",
+    marginBottom: SPACING,
+  },
+  titleText: {
+    color: colors.light,
+    fontSize: SPACING * 2,
+    fontWeight: "700",
+    marginBottom: SPACING,
+  },
+  descriptionText: {
+    color: colors.light,
+  },
+  imageContainer: {
+    width: "50%",
+    position: "relative",
+  },
+  carImage: {
+    width: "100%",
+    height: 100,
+  },
+  iconContainerlogo: {
+    width: "50%",
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
